@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cinemax - Select Seats</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">CINEMAX</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="movies.html">Movies</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Movie Information -->
+    <section class="booking-title">
+
+        <h1 id="movieName">Select Your Seats</h1>
+
+        <p>Choose your date, show time and seats</p>
+
+    </section>
+
+
+    <!-- Booking Section -->
+    <section class="booking-container">
+
+        <!-- Date Selection -->
+        <h3 class="section-title">Select Date</h3>
+
+        <div class="date-list" id="dateList">
+            <!-- The next five dates are generated automatically by JavaScript. -->
+        </div>
+
+
+        <!-- Show Time -->
+        <h3 class="section-title">Select Show Time</h3>
+
+        <div class="show-times">
+
+            <button class="show-time active">
+                10:00 AM
+            </button>
+
+            <button class="show-time">
+                01:30 PM
+            </button>
+
+            <button class="show-time">
+                04:30 PM
+            </button>
+
+            <button class="show-time">
+                07:30 PM
+            </button>
+
+            <button class="show-time">
+                10:30 PM
+            </button>
+
+        </div>
+
+
+        <!-- Seats -->
+        <h3 class="section-title">Select Your Seats</h3>
+
+        <div class="screen">
+            SCREEN
+        </div>
+
+
+        <div class="seat-layout">
+
+            <!-- Row A -->
+            <div class="seat-row">
+
+                <span class="row-name">A</span>
+
+                <button class="seat">A1</button>
+                <button class="seat">A2</button>
+                <button class="seat">A3</button>
+                <button class="seat">A4</button>
+                <button class="seat">A5</button>
+                <button class="seat">A6</button>
+                <button class="seat">A7</button>
+                <button class="seat">A8</button>
+
+            </div>
+
+
+            <!-- Row B -->
+            <div class="seat-row">
+
+                <span class="row-name">B</span>
+
+                <button class="seat">B1</button>
+                <button class="seat">B2</button>
+                <button class="seat">B3</button>
+                <button class="seat">B4</button>
+                <button class="seat">B5</button>
+                <button class="seat">B6</button>
+                <button class="seat">B7</button>
+                <button class="seat">B8</button>
+
+            </div>
+
+
+            <!-- Row C -->
+            <div class="seat-row">
+
+                <span class="row-name">C</span>
+
+                <button class="seat">C1</button>
+                <button class="seat">C2</button>
+                <button class="seat">C3</button>
+                <button class="seat">C4</button>
+                <button class="seat">C5</button>
+                <button class="seat">C6</button>
+                <button class="seat">C7</button>
+                <button class="seat">C8</button>
+
+            </div>
+
+
+            <!-- Row D -->
+            <div class="seat-row">
+
+                <span class="row-name">D</span>
+
+                <button class="seat">D1</button>
+                <button class="seat">D2</button>
+                <button class="seat">D3</button>
+                <button class="seat">D4</button>
+                <button class="seat">D5</button>
+                <button class="seat">D6</button>
+                <button class="seat">D7</button>
+                <button class="seat">D8</button>
+
+            </div>
+
+
+            <!-- Row E -->
+            <div class="seat-row">
+
+                <span class="row-name">E</span>
+
+                <button class="seat">E1</button>
+                <button class="seat">E2</button>
+                <button class="seat">E3</button>
+                <button class="seat">E4</button>
+                <button class="seat">E5</button>
+                <button class="seat">E6</button>
+                <button class="seat">E7</button>
+                <button class="seat">E8</button>
+
+            </div>
+
+
+            <!-- Row F -->
+            <div class="seat-row">
+
+                <span class="row-name">F</span>
+
+                <button class="seat">F1</button>
+                <button class="seat">F2</button>
+                <button class="seat">F3</button>
+                <button class="seat">F4</button>
+                <button class="seat">F5</button>
+                <button class="seat">F6</button>
+                <button class="seat">F7</button>
+                <button class="seat">F8</button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Seat Legend -->
+        <div class="seat-legend">
+
+            <div>
+                <span class="legend-box available"></span>
+                Available
+            </div>
+
+            <div>
+                <span class="legend-box selected"></span>
+                Selected
+            </div>
+
+            <div>
+                <span class="legend-box occupied"></span>
+                Occupied
+            </div>
+
+        </div>
+
+
+        <!-- Booking Summary -->
+        <div class="booking-summary">
+
+            <div>
+                <span>Selected Seats</span>
+                <strong id="selectedSeats">None</strong>
+            </div>
+
+            <div>
+                <span>Number of Seats</span>
+                <strong id="seatCount">0</strong>
+            </div>
+
+            <div>
+                <span>Total Amount</span>
+                <strong id="totalAmount">₹0</strong>
+            </div>
+
+            <button id="continueButton">
+                Continue
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 CINEMAX. All Rights Reserved.</p>
+
+    </footer>
+
+
+    <script>
+
+        /* =========================
+           GET MOVIE FROM URL
+        ========================= */
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const movie =
+            urlParams.get("movie");
+
+
+        if (movie) {
+
+            document.getElementById("movieName").textContent =
+                movie + " - Select Seats";
+
+        }
+
+
+        /* =========================
+           DATE SELECTION
+        ========================= */
+
+        // Generate today's date and the next four days automatically.
+        // Dates use the visitor's local calendar date.
+        const dateList = document.getElementById("dateList");
+
+        function formatLocalDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+        }
+
+        function renderBookingDates() {
+            dateList.innerHTML = "";
+
+            const today = new Date();
+
+            for (let i = 0; i < 5; i++) {
+                const date = new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate() + i
+                );
+
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = i === 0 ? "date active" : "date";
+                button.dataset.date = formatLocalDate(date);
+
+                const day = document.createElement("strong");
+                day.textContent = String(date.getDate()).padStart(2, "0");
+
+                const month = document.createElement("span");
+                month.textContent = date.toLocaleDateString("en-US", {
+                    month: "short"
+                }).toUpperCase();
+
+                button.appendChild(day);
+                button.appendChild(month);
+                dateList.appendChild(button);
+            }
+        }
+
+        renderBookingDates();
+
+        const dates =
+            document.querySelectorAll(".date");
+
+
+        dates.forEach(function(date) {
+
+            date.addEventListener("click", function() {
+
+                dates.forEach(function(item) {
+
+                    item.classList.remove("active");
+
+                });
+
+                date.classList.add("active");
+
+                loadBookedSeats();
+
+            });
+
+        });
+
+
+        /* =========================
+           TIME SELECTION
+        ========================= */
+
+        const times =
+            document.querySelectorAll(".show-time");
+
+
+        times.forEach(function(time) {
+
+            time.addEventListener("click", function() {
+
+                times.forEach(function(item) {
+
+                    item.classList.remove("active");
+
+                });
+
+                time.classList.add("active");
+
+                loadBookedSeats();
+
+            });
+
+        });
+
+
+        /* =========================
+           SEAT SELECTION
+        ========================= */
+
+        const seats =
+            document.querySelectorAll(".seat");
+
+        const selectedSeats =
+            document.getElementById("selectedSeats");
+
+        const seatCount =
+            document.getElementById("seatCount");
+
+        const totalAmount =
+            document.getElementById("totalAmount");
+
+
+        /* Movie prices */
+
+        let ticketPrice = 200;
+
+
+        if (movie === "Avengers: Doomsday") {
+
+            ticketPrice = 250;
+
+        } else if (movie === "The Conjuring") {
+
+            ticketPrice = 200;
+
+        } else if (movie === "Sita Ramam") {
+
+            ticketPrice = 180;
+
+        }
+
+
+        let selected = [];
+
+
+        /* =========================
+           LOAD OCCUPIED SEATS
+        ========================= */
+
+        function loadBookedSeats() {
+
+            const activeDate =
+                document.querySelector(".date.active");
+
+            const activeTime =
+                document.querySelector(".show-time.active");
+
+
+            if (!activeDate || !activeTime || !movie) {
+
+                return;
+
+            }
+
+
+            const bookingDate =
+                activeDate.dataset.date;
+
+
+            const showTime =
+                activeTime.textContent.trim();
+
+
+            const url =
+                "get_booked_seats.php?movie=" +
+                encodeURIComponent(movie) +
+                "&date=" +
+                encodeURIComponent(bookingDate) +
+                "&time=" +
+                encodeURIComponent(showTime);
+
+
+            fetch(url)
+
+                .then(response => response.json())
+
+                .then(bookedSeats => {
+
+                    seats.forEach(function(seat) {
+
+                        const seatNumber =
+                            seat.textContent.trim();
+
+
+                        seat.classList.remove("occupied");
+
+                        seat.disabled = false;
+
+
+                        if (
+                            bookedSeats.includes(seatNumber)
+                        ) {
+
+                            seat.classList.add("occupied");
+
+                            seat.disabled = true;
+
+
+                            seat.classList.remove("selected");
+
+
+                            selected =
+                                selected.filter(
+                                    function(item) {
+
+                                        return item !== seatNumber;
+
+                                    }
+                                );
+
+                        }
+
+                    });
+
+
+                    updateSummary();
+
+                })
+
+                .catch(error => {
+
+                    console.error(
+                        "Unable to load booked seats:",
+                        error
+                    );
+
+                });
+
+        }
+
+
+        /* =========================
+           SEAT CLICK
+        ========================= */
+
+        seats.forEach(function(seat) {
+
+            seat.addEventListener("click", function() {
+
+
+                /* Don't allow occupied seats */
+
+                if (seat.classList.contains("occupied")) {
+
+                    return;
+
+                }
+
+
+                /* Maximum 6 seats */
+
+                if (
+                    !seat.classList.contains("selected") &&
+                    selected.length >= 6
+                ) {
+
+                    alert(
+                        "You can select a maximum of 6 seats."
+                    );
+
+                    return;
+
+                }
+
+
+                seat.classList.toggle("selected");
+
+
+                const seatNumber =
+                    seat.textContent.trim();
+
+
+                if (seat.classList.contains("selected")) {
+
+                    selected.push(seatNumber);
+
+                } else {
+
+                    selected =
+                        selected.filter(
+                            function(item) {
+
+                                return item !== seatNumber;
+
+                            }
+                        );
+
+                }
+
+
+                updateSummary();
+
+            });
+
+        });
+
+
+        /* =========================
+           UPDATE SUMMARY
+        ========================= */
+
+        function updateSummary() {
+
+            if (selected.length === 0) {
+
+                selectedSeats.textContent = "None";
+
+            } else {
+
+                selectedSeats.textContent =
+                    selected.join(", ");
+
+            }
+
+
+            seatCount.textContent =
+                selected.length;
+
+
+            totalAmount.textContent =
+                "₹" + (selected.length * ticketPrice);
+
+        }
+
+
+        /* =========================
+           CONTINUE
+        ========================= */
+
+        document
+            .getElementById("continueButton")
+            .addEventListener("click", function() {
+
+
+                if (selected.length === 0) {
+
+                    alert(
+                        "Please select at least one seat."
+                    );
+
+                    return;
+
+                }
+
+
+                const activeDate =
+                    document.querySelector(".date.active");
+
+
+                const activeTime =
+                    document.querySelector(".show-time.active");
+
+
+                const bookingDate =
+                    activeDate.dataset.date;
+
+
+                const showTime =
+                    activeTime.textContent.trim();
+
+
+                const total =
+                    selected.length * ticketPrice;
+
+
+                /* Form Data */
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "movie",
+                    movie || "Movie"
+                );
+
+
+                formData.append(
+                    "date",
+                    bookingDate
+                );
+
+
+                formData.append(
+                    "time",
+                    showTime
+                );
+
+
+                formData.append(
+                    "seats",
+                    selected.join(",")
+                );
+
+
+                formData.append(
+                    "total",
+                    total
+                );
+
+
+                /* Save booking */
+
+                fetch("save_booking.php", {
+
+                    method: "POST",
+
+                    body: formData
+
+                })
+
+
+                .then(response => response.text())
+
+
+                .then(data => {
+
+                    if (
+                        data.includes(
+                            "Booking saved successfully!"
+                        )
+                    ) {
+
+
+                        const bookingData = {
+
+                            movie:
+                                movie || "Movie",
+
+                            date:
+                                bookingDate,
+
+                            time:
+                                showTime,
+
+                            seats:
+                                selected,
+
+                            tickets:
+                                selected.length,
+
+                            total:
+                                total
+
+                        };
+
+
+                        localStorage.setItem(
+                            "bookingData",
+                            JSON.stringify(bookingData)
+                        );
+
+
+                        window.location.href =
+                            "confirmation.html";
+
+
+                    } else {
+
+                        alert(data);
+
+                    }
+
+                })
+
+
+                .catch(error => {
+
+                    alert(
+                        "Unable to save booking."
+                    );
+
+                    console.error(error);
+
+                });
+
+            });
+
+
+        /* =========================
+           INITIAL LOAD
+        ========================= */
+
+        loadBookedSeats();
+
+    </script>
+
+</body>
+
+</html>
